@@ -1,0 +1,32 @@
+import StoryAvatar from "./StoryAvatar";
+import avatarMain from "@/assets/avatar-main.jpg";
+import avatarStory1 from "@/assets/avatar-story1.jpg";
+import avatarStory2 from "@/assets/avatar-story2.jpg";
+import avatarStory3 from "@/assets/avatar-story3.jpg";
+
+const stories = [
+  { id: 1, image: avatarMain, name: "Seu story", isOwn: true, hasStory: false },
+  { id: 2, image: avatarStory1, name: "Cai*****", hasStory: true },
+  { id: 3, image: avatarStory2, name: "Eri*****", hasStory: true },
+  { id: 4, image: avatarStory3, name: "ANT*****", hasStory: true },
+];
+
+const Stories = () => {
+  return (
+    <div className="px-4 py-3 overflow-x-auto">
+      <div className="flex gap-3">
+        {stories.map((story) => (
+          <StoryAvatar
+            key={story.id}
+            image={story.image}
+            name={story.name}
+            isOwn={story.isOwn}
+            hasStory={story.hasStory}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Stories;
