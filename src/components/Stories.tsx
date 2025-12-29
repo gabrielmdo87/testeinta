@@ -19,8 +19,14 @@ const stories = [
 
 const Stories = () => {
   return (
-    <div className="px-3 py-3 overflow-x-auto scrollbar-hide touch-pan-x">
-      <div className="flex gap-2">
+    <div 
+      className="px-3 py-3 overflow-x-auto scrollbar-hide"
+      style={{ 
+        WebkitOverflowScrolling: 'touch',
+        overscrollBehaviorX: 'contain'
+      }}
+    >
+      <div className="flex gap-2" style={{ width: 'max-content' }}>
         {stories.map((story) => (
           <StoryAvatar
             key={story.id}

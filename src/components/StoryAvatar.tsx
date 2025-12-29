@@ -9,7 +9,7 @@ interface StoryAvatarProps {
 
 const StoryAvatar = ({ image, name, isOwn = false, hasStory = true }: StoryAvatarProps) => {
   return (
-    <div className="flex flex-col items-center gap-1.5 min-w-[80px]">
+    <div className="flex flex-col items-center gap-1.5 flex-shrink-0" style={{ minWidth: '76px' }}>
       <div className="relative">
         {hasStory && !isOwn ? (
           <div className="p-[3px] rounded-full story-ring">
@@ -17,7 +17,8 @@ const StoryAvatar = ({ image, name, isOwn = false, hasStory = true }: StoryAvata
               <img
                 src={image}
                 alt={name}
-                className="w-[72px] h-[72px] rounded-full object-cover"
+                className="w-[68px] h-[68px] rounded-full object-cover pointer-events-none"
+                draggable={false}
               />
             </div>
           </div>
@@ -26,7 +27,8 @@ const StoryAvatar = ({ image, name, isOwn = false, hasStory = true }: StoryAvata
             <img
               src={image}
               alt={name}
-              className={`w-[76px] h-[76px] rounded-full object-cover ${!hasStory && !isOwn ? 'grayscale opacity-80' : ''}`}
+              className={`w-[72px] h-[72px] rounded-full object-cover pointer-events-none ${!hasStory && !isOwn ? 'grayscale opacity-80' : ''}`}
+              draggable={false}
             />
           </div>
         )}
@@ -36,7 +38,7 @@ const StoryAvatar = ({ image, name, isOwn = false, hasStory = true }: StoryAvata
           </div>
         )}
       </div>
-      <span className="text-xs text-foreground truncate max-w-[72px]">{name}</span>
+      <span className="text-[11px] text-foreground truncate max-w-[72px] select-none">{name}</span>
     </div>
   );
 };

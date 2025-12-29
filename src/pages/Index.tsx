@@ -5,21 +5,70 @@ import Feed from "@/components/Feed";
 import VIPBanner from "@/components/VIPBanner";
 import BottomNav from "@/components/BottomNav";
 import DirectMessages from "@/components/DirectMessages";
+import ChatScreen from "@/components/ChatScreen";
+import avatarStory1 from "@/assets/avatar-story1.jpg";
+import avatarStory2 from "@/assets/avatar-story2.jpg";
+
+type Screen = "feed" | "direct" | "chat";
+
+interface ChatData {
+  avatar: string;
+  username: string;
+  status: string;
+  type: "fer" | "hop";
+}
+
+const chatDataMap: Record<"fer" | "hop", ChatData> = {
+  fer: {
+    avatar: avatarStory1,
+    username: "Fer*****",
+    status: "Online",
+    type: "fer",
+  },
+  hop: {
+    avatar: avatarStory2,
+    username: "HOP*****",
+    status: "Online há 35 min",
+    type: "hop",
+  },
+};
 
 const Index = () => {
-  const [showDirect, setShowDirect] = useState(false);
+  const [screen, setScreen] = useState<Screen>("feed");
+  const [currentChat, setCurrentChat] = useState<ChatData | null>(null);
+
+  const handleChatOpen = (chatType: "fer" | "hop") => {
+    setCurrentChat(chatDataMap[chatType]);
+    setScreen("chat");
+  };
+
+  const handleChatBack = () => {
+    setScreen("direct");
+    setCurrentChat(null);
+  };
 
   return (
     <div className="min-h-screen bg-background max-w-md mx-auto relative">
-      {!showDirect ? (
+      {screen === "feed" && (
         <div className="pb-48">
-          <InstagramHeader onDirectClick={() => setShowDirect(true)} />
+          <InstagramHeader onDirectClick={() => setScreen("direct")} />
           <Stories />
           <Feed />
         </div>
-      ) : (
+      )}
+      
+      {screen === "direct" && (
         <div className="pb-48">
-          <DirectMessages onBack={() => setShowDirect(false)} />
+          <DirectMessages 
+            onBack={() => setScreen("feed")} 
+            onChatOpen={handleChatOpen}
+          />
+        </div>
+      )}
+
+      {screen === "chat" && currentChat && (
+        <div className="pb-48">
+          <ChatScreen onBack={handleChatBack} chatData={currentChat} />
         </div>
       )}
       

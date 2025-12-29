@@ -5,15 +5,16 @@ import MessageList from "./MessageList";
 
 interface DirectMessagesProps {
   onBack: () => void;
+  onChatOpen: (chatType: "fer" | "hop") => void;
 }
 
-const DirectMessages = ({ onBack }: DirectMessagesProps) => {
+const DirectMessages = ({ onBack, onChatOpen }: DirectMessagesProps) => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <DirectHeader username="gabrielmedina" onBack={onBack} />
       <SearchBar />
       <Notes />
-      <MessageList />
+      <MessageList onChatOpen={onChatOpen} />
     </div>
   );
 };

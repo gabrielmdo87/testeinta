@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Inter:wght@400;500;600;700&display=swap');
-
 @layer base {
   :root {
     --background: 0 0% 0%;
@@ -42,7 +40,8 @@
     --vip-banner: 270 60% 55%;
     --vip-banner-foreground: 0 0% 100%;
     --notification-red: 0 84% 50%;
-    --instagram-logo: 0 0% 100%;
+    --message-sent: 270 60% 55%;
+    --message-received: 0 0% 18%;
   }
 
   .dark {
@@ -58,15 +57,13 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
 @layer components {
-  .instagram-logo {
-    font-family: 'Lobster', cursive;
-  }
-
   .story-ring {
     background: linear-gradient(45deg, hsl(var(--story-gradient-start)), hsl(var(--story-gradient-end)));
   }
@@ -78,9 +75,18 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
   
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  .message-sent {
+    background-color: hsl(var(--message-sent));
+  }
+
+  .message-received {
+    background-color: hsl(var(--message-received));
   }
 }
