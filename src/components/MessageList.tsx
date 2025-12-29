@@ -1,40 +1,12 @@
-import { Camera } from "lucide-react";
+import MessageItem from "./MessageItem";
 import avatarStory1 from "@/assets/avatar-story1.jpg";
 import avatarStory2 from "@/assets/avatar-story2.jpg";
 import avatarStory4 from "@/assets/avatar-story4.jpg";
 import avatarUser2 from "@/assets/avatar-user2.jpg";
 
-interface MessageItemProps {
-  avatar: string;
-  username: string;
-  message: string;
-  time: string;
-  unread?: boolean;
+interface MessageListProps {
+  onChatOpen: (chatType: "fer" | "hop") => void;
 }
-
-const MessageItem = ({ avatar, username, message, time, unread = false }: MessageItemProps) => {
-  return (
-    <div className="flex items-center justify-between px-4 py-3">
-      <div className="flex items-center gap-3 flex-1 min-w-0">
-        <img
-          src={avatar}
-          alt={username}
-          className="w-14 h-14 rounded-full object-cover flex-shrink-0"
-        />
-        <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-semibold text-foreground">{username}</h3>
-          <p className="text-sm text-muted-foreground truncate">
-            {message} <span className="text-muted-foreground">• {time}</span>
-          </p>
-        </div>
-      </div>
-      <div className="flex items-center gap-2 ml-2">
-        {unread && <span className="w-2 h-2 bg-blue-500 rounded-full" />}
-        <Camera className="w-6 h-6 text-muted-foreground" strokeWidth={1.5} />
-      </div>
-    </div>
-  );
-};
 
 const messages = [
   {
@@ -44,6 +16,7 @@ const messages = [
     message: "Oi delícia, adivinha o que vc ...",
     time: "Agora",
     unread: true,
+    chatType: "fer" as const,
   },
   {
     id: 2,
@@ -52,6 +25,7 @@ const messages = [
     message: "Encaminhou um reel de jon...",
     time: "33 min",
     unread: true,
+    chatType: "hop" as const,
   },
   {
     id: 3,
@@ -60,6 +34,7 @@ const messages = [
     message: "Blz depois a gente se fala",
     time: "2 h",
     unread: false,
+    chatType: "fer" as const,
   },
   {
     id: 4,
@@ -68,10 +43,11 @@ const messages = [
     message: "Reagiu com 👍 à sua mensagem",
     time: "6 h",
     unread: false,
+    chatType: "fer" as const,
   },
 ];
 
-const MessageList = () => {
+const MessageList = ({ onChatOpen }: MessageListProps) => {
   return (
     <div className="flex-1">
       <div className="flex items-center justify-between px-4 py-3">
@@ -89,6 +65,7 @@ const MessageList = () => {
             message={msg.message}
             time={msg.time}
             unread={msg.unread}
+            onClick={() => onChatOpen(msg.chatType)}
           />
         ))}
       </div>
