@@ -9,27 +9,27 @@ interface ChatHeaderProps {
 
 const ChatHeader = ({ avatar, username, status, onBack }: ChatHeaderProps) => {
   return (
-    <header className="flex items-center justify-between px-4 py-3 border-b border-border/20">
-      <div className="flex items-center gap-3">
-        <button onClick={onBack} className="text-foreground">
-          <ChevronLeft className="w-7 h-7" strokeWidth={2} />
+    <header className="flex items-center justify-between px-2 py-3">
+      <div className="flex items-center gap-2">
+        <button onClick={onBack} className="text-foreground p-1">
+          <ChevronLeft className="w-8 h-8" strokeWidth={1.5} />
         </button>
         <img
           src={avatar}
           alt={username}
-          className="w-10 h-10 rounded-full object-cover"
+          className="w-11 h-11 rounded-full object-cover"
         />
-        <div>
-          <h1 className="text-base font-semibold text-foreground">{username}</h1>
-          <p className="text-xs text-muted-foreground">{status}</p>
+        <div className="ml-1">
+          <h1 className="text-[15px] font-semibold text-foreground">{username}</h1>
+          <p className="text-[13px] text-muted-foreground">{status}</p>
         </div>
       </div>
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-6 pr-2">
         <button className="text-foreground">
           <Phone className="w-6 h-6" strokeWidth={1.5} />
         </button>
         <button className="text-foreground">
-          <Video className="w-6 h-6" strokeWidth={1.5} />
+          <Video className="w-7 h-7" strokeWidth={1.5} />
         </button>
       </div>
     </header>

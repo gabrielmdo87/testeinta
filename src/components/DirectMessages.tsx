@@ -5,7 +5,7 @@ import MessageList from "./MessageList";
 
 interface DirectMessagesProps {
   onBack: () => void;
-  onChatOpen: (chatType: "fer" | "hop") => void;
+  onChatOpen: (chatType: "fer" | "hop" | "bru") => void;
 }
 
 const DirectMessages = ({ onBack, onChatOpen }: DirectMessagesProps) => {

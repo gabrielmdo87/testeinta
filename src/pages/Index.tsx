@@ -8,6 +8,7 @@ import DirectMessages from "@/components/DirectMessages";
 import ChatScreen from "@/components/ChatScreen";
 import avatarStory1 from "@/assets/avatar-story1.jpg";
 import avatarStory2 from "@/assets/avatar-story2.jpg";
+import avatarStory4 from "@/assets/avatar-story4.jpg";
 
 type Screen = "feed" | "direct" | "chat";
 
@@ -15,10 +16,16 @@ interface ChatData {
   avatar: string;
   username: string;
   status: string;
-  type: "fer" | "hop";
+  type: "fer" | "hop" | "bru";
 }
 
-const chatDataMap: Record<"fer" | "hop", ChatData> = {
+const chatDataMap: Record<"fer" | "hop" | "bru", ChatData> = {
+  bru: {
+    avatar: avatarStory4,
+    username: "Bru****",
+    status: "Online há 22 h",
+    type: "bru",
+  },
   fer: {
     avatar: avatarStory1,
     username: "Fer*****",
@@ -37,7 +44,7 @@ const Index = () => {
   const [screen, setScreen] = useState<Screen>("feed");
   const [currentChat, setCurrentChat] = useState<ChatData | null>(null);
 
-  const handleChatOpen = (chatType: "fer" | "hop") => {
+  const handleChatOpen = (chatType: "fer" | "hop" | "bru") => {
     setCurrentChat(chatDataMap[chatType]);
     setScreen("chat");
   };
