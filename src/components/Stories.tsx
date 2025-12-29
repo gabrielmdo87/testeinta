@@ -19,7 +19,7 @@ const stories = [
 
 const Stories = () => {
   return (
-    <div className="px-3 py-3 overflow-x-auto scrollbar-hide">
+    <div className="px-3 py-3 overflow-x-auto scrollbar-hide touch-pan-x">
       <div className="flex gap-2">
         {stories.map((story) => (
           <StoryAvatar
