@@ -1,10 +1,9 @@
 import ChatHeader from "./ChatHeader";
-import ChatMessage from "./ChatMessage";
+import ChatBubble from "./ChatBubble";
 import ChatInput from "./ChatInput";
 import avatarStory1 from "@/assets/avatar-story1.jpg";
 import avatarStory2 from "@/assets/avatar-story2.jpg";
-import reel1 from "@/assets/reel1.jpg";
-import reel2 from "@/assets/reel2.jpg";
+import avatarStory4 from "@/assets/avatar-story4.jpg";
 
 interface ChatScreenProps {
   onBack: () => void;
@@ -12,83 +11,53 @@ interface ChatScreenProps {
     avatar: string;
     username: string;
     status: string;
-    type: "fer" | "hop";
+    type: "fer" | "hop" | "bru";
   };
 }
 
+const bruMessages = [
+  { id: 1, type: "image", sent: false, isBlurred: true },
+  { id: 2, type: "image", sent: false, isBlurred: true },
+  { id: 3, type: "text", content: "De tdas as coisas que fiz na vida e arrependi, se envolver com vc esta no topo delas", sent: true },
+  { id: 4, type: "text", content: "E pensar que quase te assumi", sent: true },
+  { id: 5, type: "text", content: "Por favor", sent: false },
+  { id: 6, type: "text", content: "Vamos ser felizes a gente se ama", sent: false },
+  { id: 7, type: "text", content: "É um desperdício jogar fora tudo isso", sent: false },
+  { id: 8, type: "text", content: "Jamais eu me se sujeitaria a tudo isso se o sentimento nao tivesse no topo da minha vida.", sent: false, showAvatar: true },
+];
+
 const ferMessages = [
-  { id: 1, type: "text" as const, content: "Tô em Criciúma já, só pra avisar", sent: false },
-  { id: 2, type: "text" as const, content: "❤️", sent: false, isSmall: true },
-  { id: 3, type: "text" as const, content: "❤️❤️", sent: false },
-  { id: 4, type: "text" as const, content: "Tá aonde", sent: true },
-  { id: 5, type: "text" as const, content: "Na sua prima?", sent: true },
-  { id: 6, type: "text" as const, content: "Não", sent: false, isReply: true, replyTo: "Na sua prima?" },
-  { id: 7, type: "text" as const, content: "Casa de ******", sent: false },
-  { id: 8, type: "text" as const, content: "Tá bom 😘", sent: true },
-  { id: 9, type: "text" as const, content: "Vou ******* e depois passo aí blz??", sent: true },
-  { id: 10, type: "text" as const, content: "❤️", sent: true, isSmall: true },
+  { id: 1, type: "text", content: "Tô em Criciúma já, só pra avisar", sent: false },
+  { id: 2, type: "text", content: "🧡", sent: false },
+  { id: 3, type: "text", content: "❤️❤️", sent: false, showAvatar: true },
+  { id: 4, type: "text", content: "Tá aonde", sent: true },
+  { id: 5, type: "text", content: "Na sua prima?", sent: true },
+  { id: 6, type: "text", content: "Não", sent: false },
+  { id: 7, type: "text", content: "Casa de ******", sent: false, showAvatar: true },
+  { id: 8, type: "text", content: "Tá bom 😘", sent: true },
+  { id: 9, type: "text", content: "Vou ******* e depois passo aí blz??", sent: true },
+  { id: 10, type: "text", content: "🧡", sent: true },
 ];
 
 const hopMessages = [
-  { 
-    id: 1, 
-    type: "reel" as const, 
-    content: "", 
-    sent: false,
-    reelData: {
-      username: "jonas.milgrau",
-      avatar: avatarStory1,
-      caption: "João Pedro está no prime.",
-      thumbnail: reel1,
-    }
-  },
-  { id: 2, type: "divider" as const, content: "Novas mensagens" },
-  { id: 3, type: "timestamp" as const, content: "07:49" },
-  { 
-    id: 4, 
-    type: "reel" as const, 
-    content: "", 
-    sent: false,
-    reelData: {
-      username: "tettrem",
-      avatar: avatarStory2,
-      caption: "",
-      thumbnail: reel2,
-    },
-    reaction: "🤭"
-  },
-  { id: 5, type: "text" as const, content: "Esse achei triste", sent: true },
-  { id: 6, type: "timestamp" as const, content: "ONTEM, 18:45" },
-  { 
-    id: 7, 
-    type: "reel" as const, 
-    content: "", 
-    sent: true,
-    reelData: {
-      username: "safadodesejo",
-      avatar: avatarStory1,
-      caption: "No pêlo e no ritmo 👍",
-      thumbnail: reel1,
-    },
-    reaction: "😂"
-  },
-  { id: 8, type: "text" as const, content: "kkkkkkkkkkkkk", sent: true },
-  { 
-    id: 9, 
-    type: "audio" as const, 
-    content: "", 
-    sent: false,
-    audioData: {
-      duration: "0:23",
-      locked: true,
-    },
-    reaction: "😂"
-  },
-  { id: 10, type: "timestamp" as const, content: "ONTEM 22:11" },
+  { id: 1, type: "image", sent: false, isBlurred: false },
+  { id: 2, type: "text", content: "Mano olha esse reel kkkkk", sent: false, showAvatar: true },
+  { id: 3, type: "text", content: "Kkkkkkkkk muito bom", sent: true },
+  { id: 4, type: "text", content: "Esse achei triste", sent: true },
 ];
 
 const ChatScreen = ({ onBack, chatData }: ChatScreenProps) => {
-  const messages = chatData.type === "fer" ? ferMessages : hopMessages;
+  const getMessages = () => {
+    switch (chatData.type) {
+      case "bru": return bruMessages;
+      case "fer": return ferMessages;
+      case "hop": return hopMessages;
+      default: return ferMessages;
+    }
+  };
+
+  const messages = getMessages();
+  const avatar = chatData.avatar;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -99,47 +68,23 @@ const ChatScreen = ({ onBack, chatData }: ChatScreenProps) => {
         onBack={onBack}
       />
       
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 pb-32">
-        {messages.map((msg) => {
-          if (msg.type === "divider") {
-            return (
-              <div key={msg.id} className="flex items-center gap-4 my-4">
-                <div className="flex-1 h-px bg-border/50" />
-                <span className="text-xs text-muted-foreground">{msg.content}</span>
-                <div className="flex-1 h-px bg-border/50" />
-              </div>
-            );
-          }
-          
-          if (msg.type === "timestamp") {
-            return (
-              <div key={msg.id} className="text-center my-4">
-                <span className="text-xs text-muted-foreground">{msg.content}</span>
-              </div>
-            );
-          }
-
-          return (
-            <div key={msg.id} className={msg.reaction ? "mb-5" : ""}>
-              {(msg as any).isReply && (
-                <div className="text-xs text-muted-foreground mb-1 ml-1">
-                  respondeu a você
-                  <div className="border-l-2 border-accent/50 pl-2 ml-1 mt-1">
-                    <span className="text-foreground/70">{(msg as any).replyTo}</span>
-                  </div>
-                </div>
-              )}
-              <ChatMessage
-                type={msg.type}
-                content={msg.content}
-                sent={msg.sent}
-                reaction={(msg as any).reaction}
-                reelData={(msg as any).reelData}
-                audioData={(msg as any).audioData}
-              />
-            </div>
-          );
-        })}
+      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-1.5 pb-40">
+        {messages.map((msg) => (
+          <ChatBubble
+            key={msg.id}
+            content={msg.type === "text" ? (msg as any).content : ""}
+            sent={msg.sent}
+            showAvatar={(msg as any).showAvatar}
+            avatar={avatar}
+            isImage={msg.type === "image"}
+            isBlurred={(msg as any).isBlurred}
+          />
+        ))}
+        
+        {/* Timestamp */}
+        <div className="text-center pt-4">
+          <span className="text-[11px] text-muted-foreground tracking-wide">22 DE OUT. 14:33</span>
+        </div>
       </div>
 
       <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto bg-background">
