@@ -1,4 +1,5 @@
 import { Heart, Send } from "lucide-react";
+import instagramLogo from "@/assets/instagram-logo.png";
 
 interface InstagramHeaderProps {
   onDirectClick?: () => void;
@@ -7,7 +8,7 @@ interface InstagramHeaderProps {
 const InstagramHeader = ({ onDirectClick }: InstagramHeaderProps) => {
   return (
     <header className="flex items-center justify-between px-4 py-2.5">
-      <h1 className="font-logo text-[28px] text-foreground">Instagram</h1>
+      <img src={instagramLogo} alt="Instagram" className="h-8 brightness-0 invert" />
       <div className="flex items-center gap-6">
         <div className="relative">
           <Heart className="w-7 h-7 text-foreground" strokeWidth={1.5} />
