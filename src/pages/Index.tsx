@@ -7,19 +7,19 @@ import BottomNav from "@/components/BottomNav";
 import DirectMessages from "@/components/DirectMessages";
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState<"feed" | "direct">("feed");
+  const [showDirect, setShowDirect] = useState(false);
 
   return (
     <div className="min-h-screen bg-background max-w-md mx-auto relative">
-      {activeTab === "feed" ? (
+      {!showDirect ? (
         <div className="pb-48">
-          <InstagramHeader />
+          <InstagramHeader onDirectClick={() => setShowDirect(true)} />
           <Stories />
           <Feed />
         </div>
       ) : (
         <div className="pb-48">
-          <DirectMessages onBack={() => setActiveTab("feed")} />
+          <DirectMessages onBack={() => setShowDirect(false)} />
         </div>
       )}
       
@@ -27,7 +27,8 @@ const Index = () => {
       <div className="fixed bottom-12 left-0 right-0 z-40 max-w-md mx-auto">
         <VIPBanner />
       </div>
-      <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+      
+      <BottomNav />
     </div>
   );
 };
